@@ -6,26 +6,25 @@ const reviewSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    reviews: [
-        {
-            reviewerId: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true
-            },
-            reviewerRating: {
-                type: Number,
-                required: true
-            },
-            reviewerComment: {
-                type: String,
-                requied: true
-            }
-        }
-    ],
-    averageRating: {
-        type: Number
+    reviewerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    reviewerRating: {
+        type: Number,
+        required: true
+    },
+    reviewerComment: {
+        type: String,
+        requied: true
+    },
+    isDeleted: {
+        type: Boolean,
+        required: true,
+        default: false
     }
-},{timestamps: true});
+}, { timestamps: true });
 
 const Review = mongoose.model("Review", reviewSchema);
 
