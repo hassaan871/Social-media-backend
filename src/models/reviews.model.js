@@ -19,6 +19,9 @@ const reviewSchema = new mongoose.Schema({
         type: String,
         requied: true
     },
+    userReply: {
+        type: String
+    },
     isDeleted: {
         type: Boolean,
         required: true,
