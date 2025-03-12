@@ -127,12 +127,34 @@ const getReviewsController = async (req, res) => {
         message: "reviews found",
         reviews
     });
+}
 
+const averageReviewController = async (req, res) => {
+    const userId = req.params.id;
+    const reviews = await Review.find({
+        userId,
+        isDeleted: false
+    });
+
+    if(!reviews) return res.status(404).json({
+        success: false,
+        message: "No review available to calculate the average"
+    });
+
+    const sumOfRating = reviews.reduce((acc, cur)=> acc+cur.reviewerRating, 0);
+    const avgRating = sumOfRating/reviews.length;
+
+    return res.status(200).json({
+        success: true,
+        message: "Avearge rating calculated",
+        avgRating
+    })
 }
 
 export {
     addReviewController,
     deleteReviewController,
     replyReviewController,
-    getReviewsController
+    getReviewsController,
+    averageReviewController
 }
