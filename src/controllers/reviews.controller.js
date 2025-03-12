@@ -81,7 +81,8 @@ const replyReviewController = async (req, res) => {
     const reviewerId = req.user.id;
     const review = await Review.findOne({
         userId,
-        reviewerId
+        reviewerId,
+        isDeleted: false
     });
 
     if (review.userReply) return res.status(400).json({
@@ -102,7 +103,8 @@ const replyReviewController = async (req, res) => {
 const getReviewsController = async (req, res) => {
     const userId = req.params.id;
     const reviews = await Review.find({
-        userId
+        userId,
+        isDeleted: false
     });
 
     if (!reviews) return res.status(404).json({
