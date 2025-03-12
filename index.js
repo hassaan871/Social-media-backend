@@ -11,7 +11,6 @@ try {
     app.listen(PORT, () => {
         console.log(`server up and running on PORT: ${PORT}`);
     });
-
 } catch {
     (error) => {
         console.error(`Mongodb connection failed: ${error}`);

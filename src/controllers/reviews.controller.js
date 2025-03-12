@@ -71,7 +71,36 @@ const deleteReviewController = async (req, res) => {
     });
 }
 
+const replyReviewController = async (req, res) => {
+    const {userId, userReply} = req.body;
+    if(!userId || !userReply) return res.status(400).json({
+        soccess: false,
+        message: "userId and userReply both are required."
+    });
+
+    const reviewerId = req.user.id;
+    const review = await Review.findOne({
+        userId,
+        reviewerId
+    });
+
+    if(review.userReply) return res.status(400).json({
+        success: false,
+        message: "You have already replied to the review."
+    });
+
+    review.userReply = userReply;
+    await review.save();
+
+    return res.status(200).json({
+        success: true,
+        message: "You have Replied to the review successfully",
+        review
+    });
+}
+
 export {
     addReviewController,
-    deleteReviewController
+    deleteReviewController,
+    replyReviewController
 }
