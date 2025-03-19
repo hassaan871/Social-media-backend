@@ -1,10 +1,4 @@
-import {
-    addReviewController,
-    averageReviewController,
-    deleteReviewController,
-    getReviewsController,
-    replyReviewController
-} from '../controllers/reviews.controller.js';
+import ReviewController from '../controllers/reviews.controller.js';
 import auth from '../middlewares/auth.middleware.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
@@ -12,12 +6,12 @@ import express from "express";
 const router = express.Router();
 
 //protected routes
-router.post('/add', [asyncHandler(auth)], asyncHandler(addReviewController));
-router.delete('/delete/:id', [asyncHandler(auth)], asyncHandler(deleteReviewController));
-router.put('/reply', [asyncHandler(auth)], asyncHandler(replyReviewController));
-router.get('/user/:id', [asyncHandler(auth)], asyncHandler(getReviewsController));
+router.post('/add', [asyncHandler(auth)], asyncHandler(ReviewController.addReview));
+router.delete('/delete/:id', [asyncHandler(auth)], asyncHandler(ReviewController.deleteReview));
+router.put('/reply', [asyncHandler(auth)], asyncHandler(ReviewController.replyReview));
+router.get('/user/:id', [asyncHandler(auth)], asyncHandler(ReviewController.getReviews));
 
 //not protected routes
-router.get('/average/:id', asyncHandler(averageReviewController));
+router.get('/average/:id', asyncHandler(ReviewController.averageReview));
 
 export default router;
