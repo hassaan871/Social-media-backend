@@ -10,4 +10,6 @@ router.post('/upload', [auth, upload.fields([
     { name: 'video', maxCount: 1}
 ])], PostController.addPost);
 
+router.get('/get/:id', [auth], PostController.getPost);
+
 export default router;

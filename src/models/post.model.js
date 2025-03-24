@@ -17,7 +17,26 @@ const postSchema = new mongoose.Schema({
         {
             url: { type: String }
         }
-    ]
+    ],
+    isPremium: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    likes: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    likedBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    isDeleted: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
 }, { timestamps: true });
 
 postSchema.pre('validate', function (next) {
